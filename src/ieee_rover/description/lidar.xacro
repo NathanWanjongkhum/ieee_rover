@@ -72,11 +72,11 @@
                 <output_type>sensor_msgs/LaserScan</output_type>
                 <frame_name>laser_frame</frame_name>
             </plugin> -->
-            <plugin
+            <!-- <plugin
                 filename="gz-sim-sensors-system"
                 name="gz::sim::systems::Sensors">
                 <render_engine>ogre2</render_engine>
-    	</plugin>
+    	</plugin> -->
         </sensor>
     </gazebo>
 
