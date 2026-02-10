@@ -54,6 +54,8 @@ src/*
 
 # Re-include only the specific packages we want to track    
 !src/ieee_rover
+!src/differential_drive
+!src/lidar
 
 # Don't ignore .gitignore files within src
 !src/.gitignore
