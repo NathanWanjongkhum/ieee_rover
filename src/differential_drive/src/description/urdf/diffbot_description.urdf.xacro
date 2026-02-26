@@ -21,7 +21,7 @@
   <joint name="${prefix}base_joint" type="fixed">
     <parent link="${prefix}base_footprint"/>
     <child link="${prefix}base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <origin xyz="0 0 ${(base_height/2) + wheel_radius}" rpy="0 0 0"/>
   </joint>
 
   <!-- Base Link -->
@@ -29,7 +29,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="${base_width} ${base_length} ${base_height}"/>
+        <sphere radius="${wheel_radius}"/> 
       </geometry>
     </collision>
 
@@ -57,7 +57,7 @@
       <origin xyz="0 -${base_width/2} ${z_offset}" rpy="0 0 0"/>
       <axis xyz="0 1 0"/>
       <dynamics damping="0.2"/>
-      <limit effort="100" velocity="1.0"/>
+      <limit effort="100" velocity="100.0"/>
     </joint>
 
     <!-- left wheel Link -->
@@ -186,9 +186,36 @@
           ixx="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}" ixy="0.0" ixz="0.0"
           iyy="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}" iyz="0.0"
           izz="${caster_wheel_mass * 0.4 * (caster_wheel_radius * caster_wheel_radius)}"/>
-        </inertial>
-      </link>
+      </inertial>
+    </link>
 
+    <gazebo reference="${prefix}base_link">
+      <material>Gazebo/Orange</material>
+    </gazebo>
+
+    <gazebo reference="${prefix}left_wheel">
+      <material>Gazebo/Black</material>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}right_wheel">
+      <material>Gazebo/Black</material>
+      <mu1>1.0</mu1>
+      <mu2>1.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}caster_frontal_wheel">
+      <material>Gazebo/White</material>
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+    </gazebo>
+
+    <gazebo reference="${prefix}caster_rear_wheel">
+      <material>Gazebo/White</material>
+      <mu1>0.0</mu1>
+      <mu2>0.0</mu2>
+    </gazebo>
   </xacro:macro>
 
 </robot>
