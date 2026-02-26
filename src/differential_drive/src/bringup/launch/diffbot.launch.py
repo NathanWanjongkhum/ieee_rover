@@ -13,10 +13,11 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, RegisterEventHandler
-from launch.conditions import IfCondition
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler, IncludeLaunchDescription
+from launch.conditions import IfCondition, UnlessCondition
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution, LaunchConfiguration
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -39,10 +40,18 @@ def generate_launch_description():
             description="Start robot with mock hardware mirroring command to its states.",
         )
     )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "use_sim",
+            default_value="true",
+            description="Start robot in Gazebo simulation.",
+        )
+    )
 
     # Initialize Arguments
     gui = LaunchConfiguration("gui")
     use_mock_hardware = LaunchConfiguration("use_mock_hardware")
+    use_sim = LaunchConfiguration("use_sim")
 
     # Get URDF via xacro
     robot_description_content = Command(
@@ -60,6 +69,9 @@ def generate_launch_description():
             " ",
             "use_mock_hardware:=",
             use_mock_hardware,
+            " ",
+            "use_sim:=",
+            use_sim,
         ]
     )
     robot_description = {"robot_description": robot_description_content}
@@ -87,20 +99,42 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[robot_controllers],
         output="both",
+        condition=UnlessCondition(use_sim),
     )
+
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="both",
-        parameters=[robot_description],
+        parameters=[robot_description, {"use_sim_time": use_sim}],
     )
+    
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
         name="rviz2",
         output="log",
         arguments=["-d", rviz_config_file],
+        parameters=[{"use_sim_time": use_sim}],
         condition=IfCondition(gui),
+    )
+
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            [PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'])]
+        ),
+        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
+        condition=IfCondition(use_sim)
+    )
+
+    gz_spawn_entity = Node(
+        package='ros_gz_sim',
+        executable='create',
+        output='screen',
+        arguments=['-topic', 'robot_description',
+                   '-name', 'diffbot',
+                   '-allow_renaming', 'true'],
+        condition=IfCondition(use_sim)
     )
 
     joint_state_broadcaster_spawner = Node(
@@ -137,9 +171,20 @@ def generate_launch_description():
         )
     )
 
+    clock_bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=['/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock'],
+        output='screen',
+        condition=IfCondition(use_sim)
+    )
+
     nodes = [
         control_node,
         robot_state_pub_node,
+        gazebo,
+        gz_spawn_entity,
+        clock_bridge,
         joint_state_broadcaster_spawner,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
