@@ -1,0 +1,541 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/43fca11fd0a170649d3db045/w/1bdd08d23fb31df85bc83f4b/e/8f8f483c36a79542b0ef1ecc -->
+<robot name="my-robot">
+  <!-- Link part_1 -->
+  <link name="part_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part part_3 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3.stl"/>
+      </geometry>
+      <material name="part_3_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_2 -->
+    <visual>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__2.stl"/>
+      </geometry>
+      <material name="part_3_2_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1.stl"/>
+      </geometry>
+      <material name="part_1_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_1 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1.stl"/>
+      </geometry>
+      <material name="part_1_1_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_1 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_1.stl"/>
+      </geometry>
+      <material name="part_2_1_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_1.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_2 -->
+    <visual>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__2.stl"/>
+      </geometry>
+      <material name="part_1_2_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_3 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_3.stl"/>
+      </geometry>
+      <material name="part_2_3_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2 -->
+    <visual>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2.stl"/>
+      </geometry>
+      <material name="part_2_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0063048 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_4 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_4.stl"/>
+      </geometry>
+      <material name="part_4_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_4.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_3 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__2.stl"/>
+      </geometry>
+      <material name="part_3_3_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_3 -->
+    <visual>
+      <origin xyz="-0.190799 0.185764 -0.374556" rpy="1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1.stl"/>
+      </geometry>
+      <material name="part_1_3_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.190799 0.185764 -0.374556" rpy="1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_2 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_2.stl"/>
+      </geometry>
+      <material name="part_1_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_4 -->
+    <visual>
+      <origin xyz="0.403098 0.248145 0.00849795" rpy="0 -0 1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+      <material name="part_3_4_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.403098 0.248145 0.00849795" rpy="0 -0 1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_2 -->
+    <visual>
+      <origin xyz="0.403098 0.248145 0.00849795" rpy="0 -0 1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+      <material name="part_2_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.403098 0.248145 0.00849795" rpy="0 -0 1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_1_2 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1__2.stl"/>
+      </geometry>
+      <material name="part_1_1_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_5 -->
+    <visual>
+      <origin xyz="0.377698 -0.291605 0.00849795" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+      <material name="part_3_5_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.377698 -0.291605 0.00849795" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_3 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__3.stl"/>
+      </geometry>
+      <material name="part_2_3_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_4 -->
+    <visual>
+      <origin xyz="-0.0478 0.523595 0.130935" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__3.stl"/>
+      </geometry>
+      <material name="part_1_4_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0478 0.523595 0.130935" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_4 -->
+    <visual>
+      <origin xyz="0.377698 -0.291605 0.00849795" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+      <material name="part_2_4_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.377698 -0.291605 0.00849795" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_5 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2.stl"/>
+      </geometry>
+      <material name="part_2_5_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_6 -->
+    <visual>
+      <origin xyz="-0.035052 0.273545 0.00849795" rpy="-0 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+      <material name="part_2_6_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.035052 0.273545 0.00849795" rpy="-0 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_2 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_2.stl"/>
+      </geometry>
+      <material name="part_3_2_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_2_2 -->
+    <visual>
+      <origin xyz="-0.190799 -0.110585 -0.0782078" rpy="1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_2.stl"/>
+      </geometry>
+      <material name="part_1_2_2_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.190799 -0.110585 -0.0782078" rpy="1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_7 -->
+    <visual>
+      <origin xyz="-0.060452 -0.266205 0.00849795" rpy="-0 0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+      <material name="part_2_7_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.060452 -0.266205 0.00849795" rpy="-0 0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_6 -->
+    <visual>
+      <origin xyz="-0.035052 0.273545 0.00849795" rpy="-0 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+      <material name="part_3_6_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.035052 0.273545 0.00849795" rpy="-0 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_5 -->
+    <visual>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__2.stl"/>
+      </geometry>
+      <material name="part_1_5_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.533445 -0.0830358 -0.105757" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_6 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__4.stl"/>
+      </geometry>
+      <material name="part_1_6_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1__4.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_7 -->
+    <visual>
+      <origin xyz="-0.060452 -0.266205 0.00849795" rpy="-0 0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+      <material name="part_3_7_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.060452 -0.266205 0.00849795" rpy="-0 0 -1.5708"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3__3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_1_1_3 -->
+    <visual>
+      <origin xyz="-0.190799 0.0925248 0.0698037" rpy="-1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1__2.stl"/>
+      </geometry>
+      <material name="part_1_1_3_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.190799 0.0925248 0.0698037" rpy="-1.5708 0 3.14159"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_1_1__2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_3 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_3.stl"/>
+      </geometry>
+      <material name="part_3_3_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_3.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_4_1 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_4_1.stl"/>
+      </geometry>
+      <material name="part_4_1_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_4_1.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_2_2 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_2.stl"/>
+      </geometry>
+      <material name="part_2_2_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_2_2.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part part_3_1 -->
+    <visual>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_1.stl"/>
+      </geometry>
+      <material name="part_3_1_material">
+        <color rgba="0.34902 0.376471 0.4 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0658541 -0.0691416 -0.0314545" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://larry_description/meshes/part_3_1.stl"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
