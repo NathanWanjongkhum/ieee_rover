@@ -1,7 +1,16 @@
 <?xml version="1.0" ?>
 <!-- Generated using onshape-to-robot -->
 <!-- Onshape https://cad.onshape.com/documents/43fca11fd0a170649d3db045/w/1bdd08d23fb31df85bc83f4b/e/8f8f483c36a79542b0ef1ecc -->
-<robot name="my-robot">
+<robot name="larry_robot">
+
+  <link name="base_link"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="part_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
   <!-- Link part_1 -->
   <link name="part_1">
     <inertial>
