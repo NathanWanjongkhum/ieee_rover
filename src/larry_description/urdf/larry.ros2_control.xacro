@@ -7,6 +7,11 @@
                 <xacro:if value="${use_sim}">
                     <plugin>gz_ros2_control/GazeboSimSystem</plugin>
                 </xacro:if>
+                <!-- TODO:: Implement LarrySystemHardware -->
+                <xacro:unless value="${use_sim}">
+                    <plugin>larry_hardware/LarrySystemHardware</plugin>
+                    <param name="serial_port">/dev/ttyUSB0</param>
+                </xacro:unless>
             </hardware>
 
             <!-- left_wheel_names -->

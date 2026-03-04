@@ -4,6 +4,8 @@
 
   <xacro:arg name="use_sim" default="true"/>
 
+  <xacro:property name="use_sim_val" value="$(arg use_sim)" />
+
   <xacro:include filename="larry_core.xacro" />
   <xacro:include filename="larry_wheels.xacro" />
   <xacro:include filename="larry.ros2_control.xacro" />
@@ -20,6 +22,5 @@
   <xacro:build_wheel prefix="rear_left" x="-0.16" y="0.33" z="-0.35" />
   <xacro:build_wheel prefix="rear_right" x="0.5" y="0.33" z="-0.35" />
 
-  <xacro:larry_ros2_control use_sim="$(arg use_sim)" />
-
+  <xacro:larry_ros2_control use_sim="${use_sim_val}" />
 </robot>
