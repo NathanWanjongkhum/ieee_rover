@@ -10,14 +10,15 @@
 
   <xacro:larry_core />
 
-  <xacro:build_wheel prefix="front_left" x="-0.2108" y="-0.1106" z="0.0698" />
-  <xacro:build_wheel prefix="front_right" x="0.5534" y="-0.1106" z="0.0698" />
+  <!-- Approximated values -->
+  <xacro:build_wheel prefix="front_left" x="-0.16" y="-0.345" z="-0.35" />
+  <xacro:build_wheel prefix="front_right" x="0.5" y="-0.345" z="-0.35" />
 
-  <xacro:build_wheel prefix="mid_left" x="-0.2108" y="-0.1106" z="-0.0782" />
-  <xacro:build_wheel prefix="mid_right" x="0.5534" y="-0.1106" z="-0.0782" />
+  <xacro:build_wheel prefix="mid_left" x="-0.16" y="-0.05" z="-0.35" />
+  <xacro:build_wheel prefix="mid_right" x="0.5" y="-0.05" z="-0.35" />
 
-  <xacro:build_wheel prefix="rear_left" x="-0.2108" y="-0.1106" z="-0.3746" />
-  <xacro:build_wheel prefix="rear_right" x="0.5534" y="-0.1106" z="-0.3746" />
+  <xacro:build_wheel prefix="rear_left" x="-0.16" y="0.33" z="-0.35" />
+  <xacro:build_wheel prefix="rear_right" x="0.5" y="0.33" z="-0.35" />
 
   <xacro:larry_ros2_control use_sim="$(arg use_sim)" />
 
