@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot name="larry_robot"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="use_sim" default="true"/>
+
+  <xacro:include filename="larry_core.xacro" />
+  <xacro:include filename="larry_wheels.xacro" />
+  <xacro:include filename="larry.ros2_control.xacro" />
+
+  <xacro:larry_core />
+
+  <xacro:build_wheel prefix="front_left" x="-0.2108" y="-0.1106" z="0.0698" />
+  <xacro:build_wheel prefix="front_right" x="0.5534" y="-0.1106" z="0.0698" />
+
+  <xacro:build_wheel prefix="mid_left" x="-0.2108" y="-0.1106" z="-0.0782" />
+  <xacro:build_wheel prefix="mid_right" x="0.5534" y="-0.1106" z="-0.0782" />
+
+  <xacro:build_wheel prefix="rear_left" x="-0.2108" y="-0.1106" z="-0.3746" />
+  <xacro:build_wheel prefix="rear_right" x="0.5534" y="-0.1106" z="-0.3746" />
+
+  <xacro:larry_ros2_control use_sim="$(arg use_sim)" />
+
+</robot>
