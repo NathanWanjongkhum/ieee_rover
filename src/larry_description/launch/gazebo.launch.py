@@ -1,7 +1,7 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import IncludeLaunchDescription, AppendEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
@@ -9,6 +9,11 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     pkg_path = get_package_share_directory('larry_description')
+
+    gz_resource_path = AppendEnvironmentVariable(
+        'GZ_SIM_RESOURCE_PATH',
+        os.path.dirname(pkg_path)
+    )
 
     rsp = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(pkg_path, 'launch', 'rsp.launch.py')]),
@@ -24,7 +29,7 @@ def generate_launch_description():
     spawn_robot = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-topic', 'robot_description', '-name', 'larry_robot'],
+        arguments=['-topic', 'robot_description', '-name', 'larry_robot', '-z', '0.15'],
         output='screen'
     )
 
@@ -41,6 +46,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        gz_resource_path,
         rsp, 
         gazebo, 
         spawn_robot,
