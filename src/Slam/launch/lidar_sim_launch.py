@@ -3,7 +3,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
+from launch.actions import AppendEnvironmentVariable, DeclareLaunchArgument, IncludeLaunchDescription, TimerAction
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, TextSubstitution
@@ -15,8 +15,9 @@ from launch_ros.substitutions import FindPackageShare
 
 def generate_launch_description():
     pkg_slam = get_package_share_directory('Slam')
+    larry_description_share = get_package_share_directory('larry_description')
 
-    xacro_file = os.path.join(pkg_slam, 'description', 'robot.urdf.xacro')
+    xacro_file = os.path.join(pkg_slam, 'description', 'larry.urdf.xacro')
     bridge_config_path = os.path.join(pkg_slam, 'config', 'gpu_lidar.yaml')
     default_world = os.path.join(pkg_slam, 'worlds', 'playground.sdf')
 
@@ -27,18 +28,13 @@ def generate_launch_description():
     y = LaunchConfiguration('y')
     z = LaunchConfiguration('z')
     yaw = LaunchConfiguration('Y')
-    use_ros2_control = LaunchConfiguration('use_ros2_control')
-    render_engine = LaunchConfiguration('render_engine')
 
-    # Generate URDF from xacro at launch time
+    # Generate URDF from xacro at launch time.
+    # use_sim:=true enables gz_ros2_control and the Gazebo sensors plugins.
     robot_description = Command([
         TextSubstitution(text='xacro '),
         xacro_file,
-        TextSubstitution(text=' sim_mode:=true'),
-        TextSubstitution(text=' use_ros2_control:='),
-        use_ros2_control,
-        TextSubstitution(text=' render_engine:='),
-        render_engine,
+        TextSubstitution(text=' use_sim:=true'),
     ])
     robot_description_param = ParameterValue(robot_description, value_type=str)
 
@@ -132,7 +128,15 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
+    # Let Gazebo resolve model://larry_description/meshes/... URIs.
+    # GZ_SIM_RESOURCE_PATH must point to the parent of the package share dir.
+    set_gz_resource_path = AppendEnvironmentVariable(
+        'GZ_SIM_RESOURCE_PATH',
+        os.path.dirname(larry_description_share),
+    )
+
     return LaunchDescription([
+        set_gz_resource_path,
         DeclareLaunchArgument(
             'robot_name',
             default_value='Larry 2.0',
@@ -142,16 +146,6 @@ def generate_launch_description():
             'gz_args',
             default_value=f'-r {default_world}',
             description='Arguments passed to `gz sim` (example: "-r -s <world.sdf>")',
-        ),
-        DeclareLaunchArgument(
-            'use_ros2_control',
-            default_value='true',
-            description='Enable gz_ros2_control plugin in the robot description',
-        ),
-        DeclareLaunchArgument(
-            'render_engine',
-            default_value='ogre2',
-            description='Render engine for gz::sim::systems::Sensors (ogre1 or ogre2)',
         ),
         DeclareLaunchArgument('x', default_value='0.0', description='Spawn X'),
         DeclareLaunchArgument('y', default_value='0.0', description='Spawn Y'),

@@ -52,11 +52,12 @@ install_isolated/
 # Ignore all packages/files inside the src/ directory by default
 src/*
 
-# Re-include only the specific packages we want to track    
+# Re-include only the specific packages we want to track
 !src/ieee_rover
 !src/differential_drive
 !src/lidar
 !src/larry_description
+!src/Slam
 
 # Don't ignore .gitignore files within src
 !src/.gitignore

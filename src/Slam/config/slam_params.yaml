@@ -13,7 +13,7 @@ slam_toolbox:
     # base_footprint is a fixed child of base_link.
     odom_frame: odom
     map_frame: map
-    base_frame: base_footprint
+    base_frame: base_link
     scan_topic: /scan
 
     use_sim_time: true

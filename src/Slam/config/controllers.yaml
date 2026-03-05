@@ -11,11 +11,19 @@ controller_manager:
 
 diff_drive_controller:
   ros__parameters:
-    left_wheel_names: ["left_wheel_joint"]
-    right_wheel_names: ["right_wheel_joint"]
+    # 3 wheels per side — all joints get the same velocity command
+    left_wheel_names:
+      - front_left_wheel_joint
+      - mid_left_wheel_joint
+      - rear_left_wheel_joint
+    right_wheel_names:
+      - front_right_wheel_joint
+      - mid_right_wheel_joint
+      - rear_right_wheel_joint
 
-    wheel_separation: 0.266
-    wheel_radius: 0.034
+    # wheel_separation: lateral distance between left (x=-0.16) and right (x=0.5) wheels
+    wheel_separation: 0.66
+    wheel_radius: 0.06
 
     wheel_separation_multiplier: 1.0
     left_wheel_radius_multiplier: 1.0
@@ -31,7 +39,7 @@ diff_drive_controller:
     enable_odom_tf: true
 
     cmd_vel_timeout: 0.5
-    use_stamped_vel: false
+    use_stamped_vel: true
 
     linear.x.has_velocity_limits: true
     linear.x.has_acceleration_limits: true

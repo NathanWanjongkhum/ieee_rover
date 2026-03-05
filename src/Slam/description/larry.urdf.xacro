@@ -9,6 +9,13 @@
   <xacro:include filename="larry_core.xacro" />
   <xacro:include filename="larry_wheels.xacro" />
   <xacro:include filename="larry.ros2_control.xacro" />
+  <xacro:include filename="lidar.xacro" />
+  <xacro:include filename="depth_camera.xacro" />
+
+  <!-- red is used by depth_camera.xacro; black is already defined in larry_wheels.xacro -->
+  <material name="red">
+    <color rgba="0.8 0.1 0.1 1.0"/>
+  </material>
 
   <xacro:larry_core />
 
@@ -23,4 +30,9 @@
   <xacro:build_wheel prefix="rear_right" x="0.5" y="0.33" z="-0.35" />
 
   <xacro:larry_ros2_control use_sim="${use_sim_val}" />
+
+  <!-- NOTE: gz-sim-sensors-system is NOT registered here because playground.sdf
+       already registers it at the world level. Adding it again at the model level
+       causes a duplicate renderer/scene crash (segfault in SensorsPrivate::WaitForInit). -->
+
 </robot>

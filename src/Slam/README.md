@@ -29,7 +29,7 @@ sudo apt install \
 From the root of the workspace (`ieee_rover/`):
 
 ```bash
-colcon build --packages-select Slam
+colcon build --packages-select larry_description Slam
 source install/setup.bash
 ```
 
@@ -68,27 +68,28 @@ The map updates live as the robot moves.
 
 ## Moving the Robot
 
-To drive the robot and build a map, publish velocity commands on `/diff_drive_controller/cmd_vel_unstamped`:
+To drive the robot and build a map, publish velocity commands on `/diff_drive_controller/cmd_vel` (TwistStamped):
 
 ```bash
 # Drive forward
-ros2 topic pub --once /diff_drive_controller/cmd_vel_unstamped geometry_msgs/msg/Twist \
-  "{linear: {x: 0.3}, angular: {z: 0.0}}"
+ros2 topic pub --once /diff_drive_controller/cmd_vel geometry_msgs/msg/TwistStamped \
+  "{header: {stamp: {sec: 0}}, twist: {linear: {x: 0.3}, angular: {z: 0.0}}}"
 
 # Turn left
-ros2 topic pub --once /diff_drive_controller/cmd_vel_unstamped geometry_msgs/msg/Twist \
-  "{linear: {x: 0.0}, angular: {z: 0.5}}"
+ros2 topic pub --once /diff_drive_controller/cmd_vel geometry_msgs/msg/TwistStamped \
+  "{header: {stamp: {sec: 0}}, twist: {linear: {x: 0.0}, angular: {z: 0.5}}}"
 
 # Stop
-ros2 topic pub --once /diff_drive_controller/cmd_vel_unstamped geometry_msgs/msg/Twist \
-  "{linear: {x: 0.0}, angular: {z: 0.0}}"
+ros2 topic pub --once /diff_drive_controller/cmd_vel geometry_msgs/msg/TwistStamped \
+  "{header: {stamp: {sec: 0}}, twist: {linear: {x: 0.0}, angular: {z: 0.0}}}"
 ```
 
-Or use teleop keyboard in a second terminal:
+Or use teleop keyboard in a second terminal (requires `teleop_twist_keyboard` with stamped output support):
 
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard \
-  --ros-args --remap cmd_vel:=/diff_drive_controller/cmd_vel_unstamped
+  --ros-args --remap cmd_vel:=/diff_drive_controller/cmd_vel \
+  -p stamped:=true
 ```
 
 ---

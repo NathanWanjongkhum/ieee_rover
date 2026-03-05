@@ -2,9 +2,10 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
     <joint name="laser_joint" type="fixed">
-        <parent link="chassis"/>
+        <parent link="part_1"/>
         <child link="laser"/>
-        <origin xyz="0.122 0 0.212" rpy="0 0 0"/>
+        <!-- Mounted at center-top of robot body, toward the front -->
+        <origin xyz="0.17 -0.2 0.2" rpy="0 0 0"/>
     </joint>
 
     <!-- Match real-world driver frame_id ('laser') -->
@@ -15,24 +16,18 @@
             </geometry>
             <material name="black"/>
         </visual>
-        <visual>
-            <origin xyz="0 0 -0.05"/>
-            <geometry>
-                <cylinder radius="0.01" length="0.1"/>
-            </geometry>
-            <material name="black"/>
-        </visual>
         <collision>
             <geometry>
                 <cylinder radius="0.05" length="0.04"/>
             </geometry>
         </collision>
-        <xacro:inertial_cylinder mass="0.1" length="0.04" radius="0.05">
+        <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
-        </xacro:inertial_cylinder>
+            <mass value="0.1"/>
+            <inertia ixx="6.458e-5" ixy="0" ixz="0"
+                     iyy="6.458e-5" iyz="0" izz="9.817e-5"/>
+        </inertial>
     </link>
-
-
 
     <gazebo reference="laser">
         <material>Gazebo/Black</material>
@@ -41,15 +36,18 @@
             <pose> 0 0 0 0 0 0 </pose>
             <topic>scan</topic>
             <update_rate>10</update_rate>
-            <gz_frame_id>laser</gz_frame_id> <always_on>1</always_on>
+            <gz_frame_id>laser</gz_frame_id>
+            <always_on>1</always_on>
             <visualize>true</visualize>
             <ray>
                 <scan>
                     <horizontal>
-                        <samples>360</samples> <resolution>1</resolution>
-                        <min_angle>-3.14159</min_angle> <max_angle>3.14159</max_angle>
+                        <samples>360</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-3.14159</min_angle>
+                        <max_angle>3.14159</max_angle>
                     </horizontal>
-                    </scan>
+                </scan>
                 <range>
                     <min>0.1</min>
                     <max>12.0</max>
