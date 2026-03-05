@@ -120,11 +120,14 @@ def generate_launch_description():
         )]
     )
 
+    rviz_config = os.path.join(pkg_slam, 'config', 'slam.rviz')
+
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         output='screen',
         condition=IfCondition(rviz),
+        arguments=['-d', rviz_config],
         parameters=[{'use_sim_time': True}],
     )
 
