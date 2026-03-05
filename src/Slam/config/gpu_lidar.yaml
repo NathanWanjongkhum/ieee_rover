@@ -1,0 +1,18 @@
+- gz_topic_name: "/clock"
+  ros_type_name: "rosgraph_msgs/msg/Clock"
+  gz_type_name: "gz.msgs.Clock"
+  direction: GZ_TO_ROS
+
+- gz_topic_name: "/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  lazy: true
+  direction: GZ_TO_ROS
+  ros_topic_name: "scan"  # This remaps it to /scan on ROS side
+
+- gz_topic_name: "/scan/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  lazy: true
+  direction: GZ_TO_ROS
+  ros_topic_name: "scan/points"
