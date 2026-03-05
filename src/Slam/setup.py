@@ -21,7 +21,7 @@ setup(
     zip_safe=True,
     maintainer='riley',
     maintainer_email='rileyhop1@gmail.com',
-    description='LiDAR driver startup package for ROS 2 Jazzy',
+    description='SLAM simulation package for ROS 2 Jazzy with Gazebo',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
