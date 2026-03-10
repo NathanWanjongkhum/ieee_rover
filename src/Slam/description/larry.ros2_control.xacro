@@ -7,10 +7,12 @@
                 <xacro:if value="${use_sim}">
                     <plugin>gz_ros2_control/GazeboSimSystem</plugin>
                 </xacro:if>
-                <!-- TODO:: Implement LarrySystemHardware -->
                 <xacro:unless value="${use_sim}">
                     <plugin>larry_hardware/LarrySystemHardware</plugin>
                     <param name="serial_port">/dev/ttyUSB0</param>
+                    <param name="baud_rate">57600</param>
+                    <param name="enc_counts_per_rev">11131</param>
+                    <param name="loop_rate">30</param>
                 </xacro:unless>
             </hardware>
 
