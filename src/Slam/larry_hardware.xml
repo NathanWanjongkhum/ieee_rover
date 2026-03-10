@@ -1,0 +1,14 @@
+<library path="larry_hardware">
+  <class
+    name="larry_hardware/LarrySystemHardware"
+    type="larry_hardware::LarrySystemHardware"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>
+      6-wheel differential drive hardware interface for the Larry robot.
+      Controls 6 EMG49 motors via MD10C R3 controllers aggregated through
+      a microcontroller over UART serial using a simple ASCII protocol.
+      Commands: M&lt;left_pwm&gt; &lt;right_pwm&gt;\r\n  (-255..255)
+      Feedback: E&lt;left_ticks&gt; &lt;right_ticks&gt;\r\n  (cumulative signed counts)
+    </description>
+  </class>
+</library>
