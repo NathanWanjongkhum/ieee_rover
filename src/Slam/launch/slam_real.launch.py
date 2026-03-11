@@ -5,10 +5,10 @@ from launch import LaunchDescription
 from launch.actions import (DeclareLaunchArgument, EmitEvent, IncludeLaunchDescription,
                             LogInfo, RegisterEventHandler)
 from launch.conditions import IfCondition
+from launch.events import matches_action
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import (AndSubstitution, LaunchConfiguration,
                                   NotSubstitution, PathJoinSubstitution)
-from launch.events import matches_action
 from launch_ros.actions import LifecycleNode
 from launch_ros.event_handlers import OnStateTransition
 from launch_ros.events.lifecycle import ChangeState
@@ -23,37 +23,21 @@ def generate_launch_description():
     autostart = LaunchConfiguration('autostart')
     use_lifecycle_manager = LaunchConfiguration('use_lifecycle_manager')
 
-    declare_autostart_cmd = DeclareLaunchArgument(
-        'autostart', default_value='true',
-        description='Automatically start the slam_toolbox node through its lifecycle.')
-    declare_use_lifecycle_manager = DeclareLaunchArgument(
-        'use_lifecycle_manager', default_value='false',
-        description='Enable bond connection during node activation (nav2 lifecycle manager).')
-
-    # Include the full Gazebo simulation: robot, LiDAR bridge, and controllers.
-    # rviz is enabled here so you can see the map being built.
-    sim = IncludeLaunchDescription(
+    # Full real-hardware bringup with RViz open to visualise the map as it builds.
+    real = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([
-                FindPackageShare('Slam'),
-                'launch',
-                'lidar_sim_launch.py',
-            ])
+            PathJoinSubstitution([FindPackageShare('Slam'), 'launch', 'real.launch.py'])
         ),
-        launch_arguments={
-            'rviz': 'true',
-        }.items(),
+        launch_arguments={'rviz': 'true'}.items(),
     )
 
-    # SLAM Toolbox async mapping node, managed as a lifecycle node so we can
-    # reliably configure then activate it after the rest of the system is up.
     slam_toolbox_node = LifecycleNode(
         parameters=[
             slam_params_file,
             {
                 'use_lifecycle_manager': use_lifecycle_manager,
-                'use_sim_time': True,
-            }
+                'use_sim_time': False,
+            },
         ],
         package='slam_toolbox',
         executable='async_slam_toolbox_node',
@@ -62,16 +46,14 @@ def generate_launch_description():
         namespace='',
     )
 
-    # Emit a configure transition as soon as the node is launched (when autostart=true).
     configure_event = EmitEvent(
         event=ChangeState(
             lifecycle_node_matcher=matches_action(slam_toolbox_node),
             transition_id=Transition.TRANSITION_CONFIGURE,
         ),
-        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager)))
+        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))),
     )
 
-    # Once configured and inactive, activate the node.
     activate_event = RegisterEventHandler(
         OnStateTransition(
             target_lifecycle_node=slam_toolbox_node,
@@ -83,18 +65,18 @@ def generate_launch_description():
                     lifecycle_node_matcher=matches_action(slam_toolbox_node),
                     transition_id=Transition.TRANSITION_ACTIVATE,
                 )),
-            ]
+            ],
         ),
-        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager)))
+        condition=IfCondition(AndSubstitution(autostart, NotSubstitution(use_lifecycle_manager))),
     )
 
-    ld = LaunchDescription()
-
-    ld.add_action(declare_autostart_cmd)
-    ld.add_action(declare_use_lifecycle_manager)
-    ld.add_action(sim)
-    ld.add_action(slam_toolbox_node)
-    ld.add_action(configure_event)
-    ld.add_action(activate_event)
-
-    return ld
+    return LaunchDescription([
+        DeclareLaunchArgument('autostart', default_value='true',
+                              description='Auto configure+activate slam_toolbox lifecycle'),
+        DeclareLaunchArgument('use_lifecycle_manager', default_value='false',
+                              description='Use nav2 lifecycle manager instead of autostart'),
+        real,
+        slam_toolbox_node,
+        configure_event,
+        activate_event,
+    ])
