@@ -23,10 +23,10 @@ def generate_launch_description():
     autostart = LaunchConfiguration('autostart')
     use_lifecycle_manager = LaunchConfiguration('use_lifecycle_manager')
 
-    # Full real-hardware bringup with RViz open to visualise the map as it builds.
-    real = IncludeLaunchDescription(
+    # Full robot bringup with RViz open to visualise the map as it builds.
+    robot = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            PathJoinSubstitution([FindPackageShare('Slam'), 'launch', 'real.launch.py'])
+            PathJoinSubstitution([FindPackageShare('Slam'), 'launch', 'robot.launch.py'])
         ),
         launch_arguments={'rviz': 'true'}.items(),
     )
@@ -75,7 +75,7 @@ def generate_launch_description():
                               description='Auto configure+activate slam_toolbox lifecycle'),
         DeclareLaunchArgument('use_lifecycle_manager', default_value='false',
                               description='Use nav2 lifecycle manager instead of autostart'),
-        real,
+        robot,
         slam_toolbox_node,
         configure_event,
         activate_event,

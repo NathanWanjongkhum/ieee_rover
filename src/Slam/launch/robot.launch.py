@@ -14,13 +14,13 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     pkg_slam = get_package_share_directory('Slam')
     xacro_file = os.path.join(pkg_slam, 'description', 'larry.urdf.xacro')
-    controllers_yaml = os.path.join(pkg_slam, 'config', 'controllers_real.yaml')
+    controllers_yaml = os.path.join(pkg_slam, 'config', 'controllers_robot.yaml')
     rviz_config = os.path.join(pkg_slam, 'config', 'slam.rviz')
 
     lidar_port = LaunchConfiguration('lidar_port')
     rviz = LaunchConfiguration('rviz')
 
-    # Layer 1: headless RSP (real URDF — LarrySystemHardware plugin, wall-clock time).
+    # Layer 1: headless RSP (robot URDF — LarrySystemHardware plugin, wall-clock time).
     rsp = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([FindPackageShare('Slam'), 'launch', 'rsp.launch.py'])
@@ -67,7 +67,7 @@ def generate_launch_description():
         )],
     )
 
-    # Real HLS LiDAR driver.
+    # HLS LiDAR driver.
     lidar = Node(
         package='hls_lfcd_lds_driver',
         executable='hlds_laser_publisher',
