@@ -3,8 +3,10 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
-                            IncludeLaunchDescription, TimerAction)
+                            ExecuteProcess, IncludeLaunchDescription,
+                            RegisterEventHandler)
 from launch.conditions import IfCondition
+from launch.event_handlers import OnProcessStart
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -20,7 +22,7 @@ def generate_launch_description():
     rviz_config = os.path.join(pkg_slam, 'config', 'slam.rviz')
 
     robot_name = LaunchConfiguration('robot_name')
-    gz_args = LaunchConfiguration('gz_args')
+    gz_world = LaunchConfiguration('gz_world')
     rviz = LaunchConfiguration('rviz')
     x = LaunchConfiguration('x')
     y = LaunchConfiguration('y')
@@ -41,27 +43,23 @@ def generate_launch_description():
         launch_arguments={'use_sim': 'true', 'use_sim_time': 'true'}.items(),
     )
 
-    # Layer 2: Gazebo simulator.
-    gz_sim = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'])
-        ),
-        launch_arguments={'gz_args': gz_args}.items(),
+    # Layer 2: Gazebo simulator — ExecuteProcess gives us a handle for OnProcessStart.
+    gz_sim = ExecuteProcess(
+        cmd=['gz', 'sim', '-r', gz_world],
+        output='screen',
     )
 
     # Spawn robot from /robot_description topic (published by RSP above).
-    spawn = TimerAction(
-        period=2.0,
-        actions=[Node(
-            package='ros_gz_sim',
-            executable='create',
-            output='screen',
-            arguments=[
-                '-topic', 'robot_description',
-                '-name', robot_name,
-                '-x', x, '-y', y, '-z', z, '-Y', yaw,
-            ],
-        )],
+    # Triggered by OnProcessStart(gz_sim) below.
+    spawn_node = Node(
+        package='ros_gz_sim',
+        executable='create',
+        output='screen',
+        arguments=[
+            '-topic', 'robot_description',
+            '-name', robot_name,
+            '-x', x, '-y', y, '-z', z, '-Y', yaw,
+        ],
     )
 
     # Bridge Gazebo LiDAR scan + clock → ROS topics.
@@ -73,27 +71,6 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True, 'config_file': bridge_config}],
     )
 
-    # Controllers (spawned after Gazebo + gz_ros2_control have had time to start).
-    joint_state_broadcaster_spawner = TimerAction(
-        period=4.0,
-        actions=[Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['joint_state_broadcaster'],
-            output='screen',
-        )],
-    )
-
-    diff_drive_spawner = TimerAction(
-        period=4.0,
-        actions=[Node(
-            package='controller_manager',
-            executable='spawner',
-            arguments=['diff_drive_controller'],
-            output='screen',
-        )],
-    )
-
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -103,12 +80,20 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
+    # Start spawning the robot once gz_sim's process is alive.
+    spawn_on_gz_start = RegisterEventHandler(
+        OnProcessStart(
+            target_action=gz_sim,
+            on_start=[spawn_node],
+        )
+    )
+
     return LaunchDescription([
         set_gz_resource_path,
         DeclareLaunchArgument('robot_name', default_value='Larry 2.0',
                               description='Entity name in Gazebo'),
-        DeclareLaunchArgument('gz_args', default_value=f'-r {default_world}',
-                              description='Arguments passed to gz sim'),
+        DeclareLaunchArgument('gz_world', default_value=default_world,
+                              description='Path to the Gazebo world SDF file'),
         DeclareLaunchArgument('x', default_value='0.0', description='Spawn X'),
         DeclareLaunchArgument('y', default_value='0.0', description='Spawn Y'),
         DeclareLaunchArgument('z', default_value='0.2', description='Spawn Z'),
@@ -116,9 +101,7 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz', default_value='false', description='Open RViz'),
         rsp,
         gz_sim,
-        spawn,
         bridge,
-        joint_state_broadcaster_spawner,
-        diff_drive_spawner,
+        spawn_on_gz_start,
         rviz_node,
     ])
