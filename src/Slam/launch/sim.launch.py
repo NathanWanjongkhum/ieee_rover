@@ -6,7 +6,7 @@ from launch.actions import (AppendEnvironmentVariable, DeclareLaunchArgument,
                             ExecuteProcess, IncludeLaunchDescription,
                             RegisterEventHandler)
 from launch.conditions import IfCondition
-from launch.event_handlers import OnProcessStart
+from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -44,8 +44,13 @@ def generate_launch_description():
     )
 
     # Layer 2: Gazebo simulator — ExecuteProcess gives us a handle for OnProcessStart.
+    # GZ_SIM_SYSTEM_PLUGIN_PATH must include LD_LIBRARY_PATH so Gazebo can find
+    # gz_ros2_control-system (mirrors what ros_gz_sim's gz_sim.launch.py does).
     gz_sim = ExecuteProcess(
         cmd=['gz', 'sim', '-r', gz_world],
+        additional_env={
+            'GZ_SIM_SYSTEM_PLUGIN_PATH': os.environ.get('LD_LIBRARY_PATH', ''),
+        },
         output='screen',
     )
 
@@ -80,11 +85,33 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
+    joint_state_broadcaster_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['joint_state_broadcaster'],
+        output='screen',
+    )
+
+    diff_drive_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=['diff_drive_controller'],
+        output='screen',
+    )
+
     # Start spawning the robot once gz_sim's process is alive.
     spawn_on_gz_start = RegisterEventHandler(
         OnProcessStart(
             target_action=gz_sim,
             on_start=[spawn_node],
+        )
+    )
+
+    # Spawn controllers once the robot entity has been created in Gazebo.
+    controllers_on_spawn = RegisterEventHandler(
+        OnProcessExit(
+            target_action=spawn_node,
+            on_exit=[joint_state_broadcaster_spawner, diff_drive_spawner],
         )
     )
 
@@ -103,5 +130,6 @@ def generate_launch_description():
         gz_sim,
         bridge,
         spawn_on_gz_start,
+        controllers_on_spawn,
         rviz_node,
     ])
