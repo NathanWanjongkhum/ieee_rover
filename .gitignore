@@ -58,6 +58,7 @@ src/*
 !src/lidar
 !src/larry_description
 !src/Slam
+!src/imu_serial_bridge
 
 # Don't ignore .gitignore files within src
 !src/.gitignore

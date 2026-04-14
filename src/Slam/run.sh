@@ -31,7 +31,7 @@ echo ""
 echo "╔══════════════════════════════════════╗"
 echo "║   Launching SLAM simulation...       ║"
 echo "╚══════════════════════════════════════╝"
-ros2 launch Slam slam_launch.py &
+ros2 launch Slam slam_sim.launch.py &
 SIM_PID=$!
 
 # Give Gazebo + controllers time to come up before teleop steals the terminal
